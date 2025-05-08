@@ -1,0 +1,261 @@
+<div
+  class="container d-flex flex-column justify-content-center align-items-center mb-4"
+>
+
+  <h4 class="mt-4">Add a new Bank</h4>
+  <p class="text-muted">
+    Create a new bank and keep track of its PAPSS activity.
+  </p>
+</div>
+
+<div
+  class="card p-5 d-flex justify-content-center mb-4 border-dark border rounded-4 shadow"
+>
+  <p-stepper [value]="1" class="basis-[50rem]">
+    <p-step-list>
+      <p-step [value]="1">Bank</p-step>
+      <p-step [value]="2">IP Addresses</p-step>
+      <p-step [value]="3">Timelines</p-step>
+    </p-step-list>
+    <p-step-panels>
+      <form [formGroup]="addBankForm">
+        <p-step-panel [value]="1">
+          <ng-template #content let-activateCallback="activateCallback">
+            <div class="container">
+              <div class="d-flex flex-column align-items-center">
+                <h6 class="fw-bolder">Bank Overview</h6>
+                <div class="my-3">
+                  <p-floatlabel variant="on">
+                    <input
+                      pInputText
+                      id="on_label"
+                      class="form-control"
+                      pSize="large"
+                      autocomplete="off"
+                      formControlName="bankName"
+                    />
+                    <label for="on_label">Bank Name</label>
+                  </p-floatlabel>
+                  @if(addBankForm.controls.bankName.invalid &&
+                  (addBankForm.controls.bankName.dirty ||
+                  addBankForm.controls.bankName.touched)){
+                  <small class="text-danger">Bank Name is required</small>
+                  }
+                </div>
+                <div class="my-3">
+                  <p-floatlabel variant="on">
+                    <p-select
+                      formControlName="country"
+                      [options]="countries"
+                      size="large"
+                      placeholder="Select Country"
+                      [showClear]="true"
+                      class="input-select"
+                      [filter]="true"
+                    />
+                    <!-- <label for="on_label">Country</label> -->
+                  </p-floatlabel>
+                </div>
+                <div class="my-3">
+                  <p-floatlabel variant="on">
+                    <input
+                      pInputText
+                      id="on_label"
+                      class="form-control"
+                      pSize="large"
+                      autocomplete="off"
+                      formControlName="currentIssue"
+                    />
+                    <label for="on_label">Current Issue</label>
+                  </p-floatlabel>
+                </div>
+                <div class="my-3">
+                  <p-floatlabel variant="on">
+                    <p-select
+                      formControlName="status"
+                      [options]="statuses"
+                      size="large"
+                      placeholder="Select Status"
+                      [showClear]="true"
+                      class="input-select"
+                    />
+                    <!-- <label for="on_label">Current Status</label> -->
+                  </p-floatlabel>
+                </div>
+              </div>
+              <div class="d-flex mt-3 justify-content-end">
+                <p-button
+                  label="Next"
+                  icon="pi pi-arrow-right"
+                  iconPos="right"
+                  (onClick)="activateCallback(2)"
+                />
+              </div>
+            </div>
+          </ng-template>
+        </p-step-panel>
+
+        <p-step-panel [value]="2">
+          <ng-template #content let-activateCallback="activateCallback">
+            <div class="container">
+              <div class="d-flex flex-column align-items-center">
+                <h6 class="fw-bolder">IP Addresses</h6>
+                <div class="my-3">
+                  <p-floatlabel variant="on">
+                    <input
+                      pInputText
+                      id="on_label"
+                      class="form-control"
+                      pSize="large"
+                      autocomplete="off"
+                      formControlName="sitIpAddress"
+                    />
+                    <label for="on_label">SIT Ip Address</label>
+                  </p-floatlabel>
+                </div>
+                <div class="my-3">
+                  <p-floatlabel variant="on">
+                    <input
+                      pInputText
+                      id="on_label"
+                      class="form-control"
+                      pSize="large"
+                      autocomplete="off"
+                      formControlName="uatIpAddress"
+                    />
+                    <label for="on_label">UAT Ip Address</label>
+                  </p-floatlabel>
+                </div>
+                <div class="my-3">
+                  <p-floatlabel variant="on">
+                    <input
+                      pInputText
+                      id="on_label"
+                      class="form-control"
+                      pSize="large"
+                      autocomplete="off"
+                      formControlName="preprodIpAddress"
+                    />
+                    <label for="on_label">Pre-Prod Ip Address</label>
+                  </p-floatlabel>
+                </div>
+                <div class="my-3">
+                  <p-floatlabel variant="on">
+                    <input
+                      pInputText
+                      id="on_label"
+                      class="form-control"
+                      pSize="large"
+                      autocomplete="off"
+                      formControlName="prodIpAddress"
+                    />
+                    <label for="on_label">Prod Ip Address</label>
+                  </p-floatlabel>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex mt-5 justify-content-between">
+              <p-button
+                label="Back"
+                severity="secondary"
+                icon="pi pi-arrow-left"
+                (onClick)="activateCallback(1)"
+              />
+              <p-button
+                label="Next"
+                icon="pi pi-arrow-right"
+                iconPos="right"
+                (onClick)="activateCallback(3)"
+              />
+            </div>
+          </ng-template>
+        </p-step-panel>
+
+        <p-step-panel [value]="3">
+          <ng-template #content let-activateCallback="activateCallback">
+            <div class="container">
+              <div class="d-flex flex-column align-items-center">
+                <h6 class="fw-bolder">Activity Timeline</h6>
+                <div class="my-3">
+                  <p-floatlabel variant="on">
+                    <p-datepicker
+                      inputId="on_label"
+                      pSize="large"
+                      showIcon
+                      iconDisplay="input"
+                      formControlName="sitDate"
+                      dateFormat="dd.M.yy"
+                    />
+                    <label for="on_label">Sit Date</label>
+                  </p-floatlabel>
+                </div>
+                <div class="my-3">
+                  <p-floatlabel variant="on">
+                    <p-datepicker
+                      inputId="on_label"
+                      pSize="large"
+                      showIcon
+                      iconDisplay="input"
+                      formControlName="uatDate"
+                      dateFormat="dd.M.yy"
+                    />
+                    <label for="on_label">Uat Date</label>
+                  </p-floatlabel>
+                </div>
+                <div class="my-3">
+                  <p-floatlabel variant="on">
+                    <p-datepicker
+                      inputId="on_label"
+                      pSize="large"
+                      showIcon
+                      iconDisplay="input"
+                      formControlName="preprodDate"
+                      dateFormat="dd.M.yy"
+                    />
+                    <label for="on_label">Pre-Production Date</label>
+                  </p-floatlabel>
+                </div>
+                <div class="my-3">
+                  <p-floatlabel variant="on">
+                    <p-datepicker
+                      inputId="on_label"
+                      pSize="large"
+                      showIcon
+                      iconDisplay="input"
+                      formControlName="prodDate"
+                      dateFormat="dd.M.yy"
+                    />
+                    <label for="on_label">Production Date</label>
+                  </p-floatlabel>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex mt-5 justify-content-between">
+              <p-button
+                label="Back"
+                severity="secondary"
+                icon="pi pi-arrow-left"
+                (onClick)="activateCallback(2)"
+              />
+              <p-button
+                label="Add Bank"
+                icon="pi pi-arrow-right"
+                iconPos="right"
+                (onClick)="addBank()"
+                [disabled]="addBankForm.invalid"
+              />
+            </div>
+          </ng-template>
+        </p-step-panel>
+      </form>
+    </p-step-panels>
+  </p-stepper>
+</div>
+
+<p-toast />
+
+@if(isLoading){
+<div class="loader-overlay">
+  <div class="loader"></div>
+</div>
+}

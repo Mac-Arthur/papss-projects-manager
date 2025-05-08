@@ -1,0 +1,8 @@
+::ng-deep .p-datatable-striped .p-datatable-tbody > tr:nth-child(even) {
+  background-color: #ffffff !important; /* Custom stripe color (even rows) */
+}
+
+::ng-deep .p-datatable-striped .p-datatable-tbody > tr:nth-child(odd) {
+  background-color: #f5f5f5 !important;
+  /* background: radial-gradient(circle, #F9FAFB 0%, #EFEFEF 50%, #D1D5DB 100%) !important; */
+}

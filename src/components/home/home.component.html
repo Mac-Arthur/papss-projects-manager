@@ -1,0 +1,283 @@
+<div class="container d-flex justify-content-between align-items-center mb-5">
+  <div>
+    <img alt="papss" src="assets/images/papss.png" class="logo-img" />
+  </div>
+  <button type="button" class="btn btn-dark btn-sm" routerLink="/add">
+    Add Bank
+  </button>
+</div>
+
+@if(isLoading){
+<div class="card">
+  <p-table [value]="skeleton" responsiveLayout="scroll">
+    <ng-template #header>
+      <tr>
+        <th>Name</th>
+        <th>Country</th>
+        <th>Status</th>
+        <th>Current Issue</th>
+        <th>Action</th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-product>
+      <tr>
+        <td><p-skeleton /></td>
+        <td><p-skeleton /></td>
+        <td><p-skeleton /></td>
+        <td><p-skeleton /></td>
+        <td><p-skeleton /></td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+} @else {
+<div class="card">
+  <p-table
+    class=""
+    #dt
+    [value]="projects"
+    [paginator]="true"
+    [rows]="10"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [rowsPerPageOptions]="[10, 20]"
+    [globalFilterFields]="['bankName', 'country', 'status', 'currentIssue']"
+    [rowHover]="true"
+    [scrollable]="true"
+    scrollHeight="400px"
+    stripedRows
+  >
+    <ng-template #caption>
+      <div class="d-flex align-items-center justify-content-between">
+        <h5>Banks</h5>
+        <p-iconfield iconPosition="left" class="ml-auto">
+          <p-inputicon>
+            <i class="pi pi-search"></i>
+          </p-inputicon>
+          <input
+            pInputText
+            type="text"
+            class="custom-search-input me-2"
+            (input)="onGlobalFilter($event)"
+            placeholder="Search bank"
+          />
+        </p-iconfield>
+      </div>
+    </ng-template>
+    <ng-template #header>
+      <tr>
+        <th style="min-width: 200px">Name</th>
+        <th style="min-width: 100px">Current Issue</th>
+        <th style="min-width: 50px">Country</th>
+        <th style="min-width: 100px">Status</th>
+        <th style="min-width: 50px">Action</th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-project>
+      <tr>
+        <td>{{ project.bankName | uppercase }}</td>
+        <td>{{ (project.currentIssue | uppercase) || "N/A" }}</td>
+        <td>{{ project.country | uppercase }}</td>
+        <td>
+          <span
+            class="badge rounded-pill"
+            [ngClass]="getBadgeClass(project.status)"
+            >{{ project.status ?? "N/A" }}
+          </span>
+        </td>
+        <td class="d-flex align-items-center">
+          <img
+            alt="eye"
+            data-bs-toggle="modal"
+            (click)="openModal(project)"
+            data-bs-target="#exampleModal"
+            src="assets/images/eye.svg"
+            class="icon"
+          />
+          <img
+            alt="edit"
+            src="assets/images/edit.svg"
+            class="icon ms-2"
+            [routerLink]="['/edit', project.id]"
+          />
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="5" class="text-center text-muted">No banks found</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+}
+
+<!-- View Bank Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">
+          Bank information
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body text-sm">
+        <div class="row">
+          <div class="col-12 mb-2 d-flex align-items-center">
+            <img src="assets/images/bank.svg" class="icon me-1" />
+            <div>
+              <strong>Name:</strong
+              ><span class="text-muted ms-2">{{
+                selectedProject?.bankName || "N/A"
+              }}</span>
+            </div>
+          </div>
+          <div class="col-12 mb-2 d-flex align-items-center">
+            <img src="assets/images/africa.svg" class="icon me-1" />
+            <div>
+              <strong>Country:</strong
+              ><span class="text-muted ms-2">{{
+                selectedProject?.country || "N/A"
+              }}</span>
+            </div>
+          </div>
+          <div class="col-12 mb-2 d-flex align-items-center">
+            <img src="assets/images/status.svg" class="icon me-1" />
+            <div>
+              <strong>Current Status:</strong
+              ><span
+                class="badge ms-2"
+                [ngClass]="getBadgeClass(selectedProject?.status || '')"
+                >{{ selectedProject?.status || "N/A" }}</span
+              >
+            </div>
+          </div>
+          <div class="col-12 mb-2 d-flex align-items-center">
+            <img src="assets/images/warning.svg" class="icon me-1" />
+            <div>
+              <strong>Current Issue:</strong
+              ><span class="text-muted ms-2">{{
+                selectedProject?.currentIssue || "N/A"
+              }}</span>
+            </div>
+          </div>
+          <div class="col-12 mb-2 d-flex align-items-center">
+            <img src="assets/images/calender.png" class="icon me-1" />
+            <div>
+              <strong>Reported Date:</strong
+              ><span class="text-muted ms-2">{{
+                (selectedProject?.reportedDate | date : "medium") || "N/A"
+              }}</span>
+            </div>
+          </div>
+          <div class="col-12 mb-2 d-flex align-items-center">
+            <img src="assets/images/calender.png" class="icon me-1" />
+            <div>
+              <strong>Added Date:</strong
+              ><span class="text-muted ms-2">{{
+                (selectedProject?.dateAdded | date : "medium") || "N/A"
+              }}</span>
+            </div>
+          </div>
+          <div class="col-12 mb-2 d-flex align-items-center">
+            <img src="assets/images/calender.png" class="icon me-1" />
+            <div>
+              <strong>Last Updated Date:</strong
+              ><span class="text-muted ms-2">{{
+                (selectedProject?.lastUpdated | date : "medium") || "N/A"
+              }}</span>
+            </div>
+          </div>
+        </div>
+        <!-- IP addresses -->
+        <div class="row mt-2">
+          <div class="col-12 mb-2 d-flex align-items-center">
+            <img src="assets/images/web.svg" class="icon me-1" />
+            <strong>SIT IP Address:</strong
+            ><span class="text-muted ms-2">{{
+              selectedProject?.sitIpAddress || "N/A"
+            }}</span>
+          </div>
+          <div class="col-12 mb-2 d-flex align-items-center">
+            <img src="assets/images/web.svg" class="icon me-1" />
+            <strong>UAT IP Address:</strong
+            ><span class="text-muted ms-2">{{
+              selectedProject?.uatIpAddress || "N/A"
+            }}</span>
+          </div>
+
+          <div class="col-12 mb-2 d-flex align-items-center">
+            <img src="assets/images/web.svg" class="icon me-1" />
+            <strong>PreProd IP Address:</strong
+            ><span class="text-muted ms-2">{{
+              selectedProject?.preprodIpAddress || "N/A"
+            }}</span>
+          </div>
+          <div class="col-12 mb-2 d-flex align-items-center">
+            <img src="assets/images/web.svg" class="icon me-1" />
+            <strong>Prod IP Address:</strong
+            ><span class="text-muted ms-2">{{
+              selectedProject?.prodIpAddress || "N/A"
+            }}</span>
+          </div>
+        </div>
+        <!-- End IP Addresses -->
+        <!-- Timeline -->
+        <div class="row mt-2">
+          <div class="col-12 mb-2 d-flex align-items-center">
+            <img src="assets/images/calender.png" class="icon me-1" />
+            <div>
+              <strong>SIT Date:</strong
+              ><span class="text-muted ms-2">{{
+                (selectedProject?.sitDate | date : "medium") || "N/A"
+              }}</span>
+            </div>
+          </div>
+          <div class="col-12 mb-2">
+            <div class="col-12 mb-2 d-flex align-items-center">
+              <img src="assets/images/calender.png" class="icon me-1" />
+              <div>
+                <strong>UAT Date:</strong
+                ><span class="text-muted ms-2">{{
+                  (selectedProject?.uatDate | date : "medium") || "N/A"
+                }}</span>
+              </div>
+            </div>
+            <div class="col-12 mb-2 d-flex align-items-center">
+              <img src="assets/images/calender.png" class="icon me-1" />
+              <div>
+                <strong>PreProd Date:</strong
+                ><span class="text-muted ms-2">{{
+                  (selectedProject?.preprodDate | date : "medium") || "N/A"
+                }}</span>
+              </div>
+            </div>
+            <div class="col-12 mb-2 d-flex align-items-center">
+              <img src="assets/images/calender.png" class="icon me-1" />
+              <div>
+                <strong>Prod Date:</strong
+                ><span class="text-muted ms-2">{{
+                  (selectedProject?.prodDate | date : "medium") || "N/A"
+                }}</span>
+              </div>
+            </div>
+          </div>
+          <!-- End Timeline -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- End View Bank Modal -->
+</div>
