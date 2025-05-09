@@ -72,29 +72,31 @@ export class AddBankComponent implements OnInit {
 
       this.addBankService.addProject(data).subscribe({
         next: (response: BaseResponse<any>) => {
-          if (response.responseCode === 0) {
-            this.isLoading = false;
-            this.messageService.add({
-              severity: 'success',
-              summary: response.responseMessage,
-              detail: response.data,
-            });
-            this.addBankForm.reset();
-          } else if (response.responseCode === 2) {
-            this.isLoading = false;
-            this.messageService.add({
-              severity: 'error',
-              summary: response.responseMessage,
-              detail: response.data,
-            });
-          } else {
-            this.isLoading = false;
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Failed to add Bank',
-              detail: response.data || 'An unknown error occurred.',
-            });
-          }
+          setTimeout(() => {
+            if (response.responseCode === 0) {
+              this.isLoading = false;
+              this.messageService.add({
+                severity: 'success',
+                summary: response.responseMessage,
+                detail: response.data,
+              });
+              this.addBankForm.reset();
+            } else if (response.responseCode === 2) {
+              this.isLoading = false;
+              this.messageService.add({
+                severity: 'error',
+                summary: response.responseMessage,
+                detail: response.data,
+              });
+            } else {
+              this.isLoading = false;
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Failed to add Bank',
+                detail: response.data || 'An unknown error occurred.',
+              });
+            }
+          }, 1000);
         },
         error: (error) => {
           this.isLoading = false;

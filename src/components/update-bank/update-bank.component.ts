@@ -43,7 +43,7 @@ export class UpdateBankComponent implements OnInit {
   private messageService = inject(MessageService);
   private selectService = inject(SelectService);
   private router = inject(ActivatedRoute);
-  // private route = inject(Router);
+ 
   Id!: number;
   statuses: string[] | undefined;
   countries: string[] | undefined;
@@ -54,6 +54,7 @@ export class UpdateBankComponent implements OnInit {
     this.Id = Number(this.router.snapshot.paramMap.get('id'));
     this.getBank();
   }
+
   getBank() {
     this.addBankService.getProject(this.Id).subscribe({
       next: (response: BaseResponse<AddBank>) => {

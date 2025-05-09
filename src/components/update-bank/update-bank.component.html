@@ -11,7 +11,7 @@
 </div>
 
 <div
-  class="card p-3 d-flex justify-content-center mb-4 border-dark border rounded-4"
+  class="card p-5 d-flex justify-content-center mb-4 border-dark border rounded-4 shadow"
 >
   <p-stepper [value]="1" class="basis-[50rem]">
     <p-step-list>
@@ -50,11 +50,12 @@
                       formControlName="country"
                       [options]="countries"
                       size="large"
-                      placeholder="Select Country"
+                   
                       [showClear]="true"
                       class="input-select"
                       [filter]="true"
                     />
+                    <label for="on_label">Country</label>
                   </p-floatlabel>
                 </div>
                 <div class="my-3">
@@ -76,11 +77,11 @@
                       formControlName="status"
                       [options]="statuses"
                       size="large"
-                      placeholder="Select Status"
+                    
                       [showClear]="true"
                       class="input-select"
                     />
-                    <!-- <label for="on_label">Current Status</label> -->
+                    <label for="on_label"> Status</label>
                   </p-floatlabel>
                 </div>
               </div>

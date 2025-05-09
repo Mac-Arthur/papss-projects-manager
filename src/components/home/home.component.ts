@@ -32,6 +32,7 @@ export class HomeComponent implements OnInit {
   projects: GetBank[] = [];
   selectedProject: GetBank | null = null;
   skeleton: any[] = [];
+  banksCount:number = 0;
 
   ngOnInit(): void {
     this.getProjects();
@@ -44,6 +45,7 @@ export class HomeComponent implements OnInit {
         if (response.responseCode === 0) {
           this.isLoading = false;
           this.projects = response.data;
+          this.banksCount = response.data.length;
           console.log(response.responseMessage);
         } else {
           console.log(response.responseMessage);
