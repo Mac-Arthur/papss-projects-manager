@@ -18,6 +18,8 @@ import { DatePicker } from 'primeng/datepicker';
 import { Toast } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { SelectService } from '../../services/helper/select.service';
+import { IpSafeDirective } from '../../directives/ip-safe.directive';
+import { AlphanumericDirective } from '../../directives/alphanumeric.directive';
 
 @Component({
   selector: 'app-add-bank',
@@ -33,6 +35,8 @@ import { SelectService } from '../../services/helper/select.service';
     DatePicker,
     Toast,
     Select,
+    IpSafeDirective,
+    AlphanumericDirective,
   ],
   templateUrl: './add-bank.component.html',
   styleUrl: './add-bank.component.css',
@@ -58,6 +62,8 @@ export class AddBankComponent implements OnInit {
     preprodIpAddress: new FormControl<string | null>(null),
     prodIpAddress: new FormControl<string | null>(null),
     status: new FormControl<string | null>(null),
+    lcyTestAccount: new FormControl<string | null>(null),
+    fcyTestAccount: new FormControl<string | null>(null),
     currentIssue: new FormControl<string | null>(null),
     sitDate: new FormControl<Date | null>(null),
     uatDate: new FormControl<Date | null>(null),

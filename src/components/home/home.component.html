@@ -31,6 +31,7 @@
   </p-table>
 </div>
 } @else {
+
 <div class="table-border shadow">
   <p-table
     class="p-3"
@@ -47,19 +48,21 @@
   >
     <ng-template #caption>
       <div class="d-flex align-items-center justify-content-between">
-        <h6 class="fw-bold">{{banksCount}} Banks</h6>
-        <p-iconfield iconPosition="left" class="ml-auto">
-          <p-inputicon>
-            <i class="pi pi-search"></i>
-          </p-inputicon>
-          <input
-            pInputText
-            type="text"
-            class="custom-search-input me-2"
-            (input)="onGlobalFilter($event)"
-            placeholder="Search bank"
-          />
-        </p-iconfield>
+        <h6 class="fw-bold">{{ banksCount }} Banks</h6>
+        <div>
+          <p-iconfield iconPosition="left" class="ml-auto">
+            <p-inputicon>
+              <i class="pi pi-search"></i>
+            </p-inputicon>
+            <input
+              pInputText
+              type="text"
+              class="custom-search-input me-2"
+              (input)="onGlobalFilter($event)"
+              placeholder="Search bank"
+            />
+          </p-iconfield>
+        </div>
       </div>
     </ng-template>
     <ng-template #header>
@@ -74,7 +77,7 @@
     <ng-template #body let-project>
       <tr>
         <td>{{ project.bankName | uppercase }}</td>
-        <td>{{ project.currentIssue  || "N/A" }}</td>
+        <td>{{ project.currentIssue || "N/A" }}</td>
         <td>{{ project.country }}</td>
         <td>
           <span
@@ -86,23 +89,22 @@
         <td class="d-flex align-items-center">
           <div>
             <img
-            alt="eye"
-            data-bs-toggle="modal"
-            (click)="openModal(project)"
-            data-bs-target="#exampleModal"
-            src="assets/images/eye.svg"
-            class="icon"
-          />
+              alt="eye"
+              data-bs-toggle="modal"
+              (click)="openModal(project)"
+              data-bs-target="#exampleModal"
+              src="assets/images/eye.svg"
+              class="icon"
+            />
           </div>
-         <div>
-          <img
-          alt="edit"
-          src="assets/images/edit.svg"
-          class="icon ms-2"
-          [routerLink]="['/edit', project.id]"
-        />
-         </div>
-         
+          <div>
+            <img
+              alt="edit"
+              src="assets/images/edit.svg"
+              class="icon ms-2"
+              [routerLink]="['/edit', project.id]"
+            />
+          </div>
         </td>
       </tr>
     </ng-template>
@@ -123,8 +125,8 @@
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content p-1">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">
           Bank information
@@ -176,6 +178,7 @@
               }}</span>
             </div>
           </div>
+         
           <div class="col-12 mb-2 d-flex align-items-center">
             <img src="assets/images/calender.png" class="icon me-1" />
             <div>
@@ -204,6 +207,29 @@
             </div>
           </div>
         </div>
+  <!-- Accounts -->
+        <div class="row mt-2">
+          <div class="col-12 mb-2 d-flex align-items-center">
+            <img src="assets/images/card.svg" class="icon me-1" />
+            <div>
+              <strong>LCY Test Account:</strong
+              ><span class="text-muted ms-2">{{
+                selectedProject?.lcyTestAccount || "N/A"
+              }}</span>
+            </div>
+          </div>
+          <div class="col-12 mb-2 d-flex align-items-center">
+            <img src="assets/images/card.svg" class="icon me-1" />
+            <div>
+              <strong>FCY Test Account:</strong
+              ><span class="text-muted ms-2">{{
+                selectedProject?.fcyTestAccount || "N/A"
+              }}</span>
+            </div>
+          </div>
+          </div>
+  <!-- End of Accounts -->
+
         <!-- IP addresses -->
         <div class="row mt-2">
           <div class="col-12 mb-2 d-flex align-items-center">
@@ -244,7 +270,7 @@
             <div>
               <strong>SIT Date:</strong
               ><span class="text-muted ms-2">{{
-                (selectedProject?.sitDate | date : "short") || "N/A"
+                (selectedProject?.sitDate | date : "medium") || "N/A"
               }}</span>
             </div>
           </div>

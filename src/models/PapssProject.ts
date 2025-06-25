@@ -2,6 +2,8 @@ export interface GetBank {
   id: number;
   bankName: string | null;
   country: string | null;
+  lcyTestAccount: string | null;
+  fcyTestAccount: string | null;
   sitIpAddress: string | null;
   uatIpAddress: string | null;
   preprodIpAddress: string | null;
@@ -17,10 +19,12 @@ export interface GetBank {
   reportedDate: string | null; 
 }
 
-export interface AddBank{
+export interface AddBank {
   bankName: string;
   country: string | null;
-  sitIpAddress: string | null ;
+  lcyTestAccount: string | null;
+  fcyTestAccount: string | null;
+  sitIpAddress: string | null;
   uatIpAddress: string | null;
   preprodIpAddress: string | null;
   prodIpAddress: string | null;

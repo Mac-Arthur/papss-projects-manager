@@ -33,6 +33,10 @@ export class HomeComponent implements OnInit {
   selectedProject: GetBank | null = null;
   skeleton: any[] = [];
   banksCount:number = 0;
+  banksOnSit:number = 0;
+  banksOnUat:number = 0;
+  banksOnPreProd:number = 0;
+  banksOnProd:number = 0;
 
   ngOnInit(): void {
     this.getProjects();
@@ -42,16 +46,20 @@ export class HomeComponent implements OnInit {
   getProjects() {
     this.homeService.getProjects().subscribe({
       next: (response: BaseResponse<GetBank[]>) => {
-        if (response.responseCode === 0) {
-          this.isLoading = false;
-          this.projects = response.data;
-          this.banksCount = response.data.length;
-          console.log(response.responseMessage);
-        } else {
-          console.log(response.responseMessage);
-          this.isLoading = false;
-          this.projects = [];
-        }
+        setTimeout(() => {
+          if (response.responseCode === 0) {
+            this.projects = response.data;
+            this.banksCount = response.data.length;
+            this.banksOnProd = response.data.filter(x=>x.status === "PROD").length;
+            console.log(response.responseMessage);
+            this.isLoading = false;
+          } else {
+            console.log(response.responseMessage);
+            this.projects = [];
+            this.isLoading = false;
+          }
+        }, 500);
+       
       },
       error: (error) => {
         console.log('An error occured======>', error);

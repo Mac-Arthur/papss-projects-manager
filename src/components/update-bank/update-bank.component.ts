@@ -19,6 +19,8 @@ import { SelectService } from '../../services/helper/select.service';
 import { AddBank } from '../../models/PapssProject';
 import { BaseResponse } from '../../models/BaseResponse';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IpSafeDirective } from '../../directives/ip-safe.directive';
+import { AlphanumericDirective } from '../../directives/alphanumeric.directive';
 
 @Component({
   selector: 'app-update-bank',
@@ -34,6 +36,8 @@ import { ActivatedRoute, Router } from '@angular/router';
     DatePicker,
     Toast,
     Select,
+    IpSafeDirective,
+    AlphanumericDirective,
   ],
   templateUrl: './update-bank.component.html',
   styleUrl: './update-bank.component.css',
@@ -55,6 +59,8 @@ export class UpdateBankComponent implements OnInit {
     this.getBank();
   }
 
+  // you got by id and you updated the formcontrol values using patchValue
+  // the date from the api is of type ISO string so you parse as date
   getBank() {
     this.addBankService.getProject(this.Id).subscribe({
       next: (response: BaseResponse<AddBank>) => {
@@ -63,6 +69,8 @@ export class UpdateBankComponent implements OnInit {
             bankName: response.data.bankName ?? '',
             country: response.data.country ?? '',
             currentIssue: response.data.currentIssue ?? null,
+            lcyTestAccount: response.data.lcyTestAccount ?? null,
+            fcyTestAccount: response.data.fcyTestAccount ?? null,
             status: response.data.status ?? 'SIT',
             sitIpAddress: response.data.sitIpAddress ?? null,
             uatIpAddress: response.data.uatIpAddress ?? null,
@@ -101,6 +109,8 @@ export class UpdateBankComponent implements OnInit {
     prodIpAddress: new FormControl<string | null>(null),
     status: new FormControl<string | null>(null),
     currentIssue: new FormControl<string | null>(null),
+    lcyTestAccount: new FormControl<string | null>(null),
+    fcyTestAccount: new FormControl<string | null>(null),
     sitDate: new FormControl<Date | null>(null),
     uatDate: new FormControl<Date | null>(null),
     preprodDate: new FormControl<Date | null>(null),

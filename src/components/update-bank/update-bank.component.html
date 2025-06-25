@@ -35,6 +35,7 @@
                       pSize="large"
                       autocomplete="off"
                       formControlName="bankName"
+                      appAlphanumeric
                     />
                     <label for="on_label">Bank Name</label>
                   </p-floatlabel>
@@ -50,7 +51,6 @@
                       formControlName="country"
                       [options]="countries"
                       size="large"
-                   
                       [showClear]="true"
                       class="input-select"
                       [filter]="true"
@@ -67,8 +67,37 @@
                       pSize="large"
                       autocomplete="off"
                       formControlName="currentIssue"
+                      appAlphanumeric
                     />
                     <label for="on_label">Current Issue</label>
+                  </p-floatlabel>
+                </div>
+                <div class="my-3">
+                  <p-floatlabel variant="on">
+                    <input
+                      pInputText
+                      id="on_label"
+                      class="form-control"
+                      pSize="large"
+                      autocomplete="off"
+                      formControlName="lcyTestAccount"
+                      appAlphanumeric
+                    />
+                    <label for="on_label">LCY Test Account</label>
+                  </p-floatlabel>
+                </div>
+                <div class="my-3">
+                  <p-floatlabel variant="on">
+                    <input
+                      pInputText
+                      id="on_label"
+                      class="form-control"
+                      pSize="large"
+                      autocomplete="off"
+                      formControlName="fcyTestAccount"
+                      appAlphanumeric
+                    />
+                    <label for="on_label">FCY Test Account </label>
                   </p-floatlabel>
                 </div>
                 <div class="my-3">
@@ -77,7 +106,6 @@
                       formControlName="status"
                       [options]="statuses"
                       size="large"
-                    
                       [showClear]="true"
                       class="input-select"
                     />
@@ -111,6 +139,7 @@
                       pSize="large"
                       autocomplete="off"
                       formControlName="sitIpAddress"
+                      appIpSafe
                     />
                     <label for="on_label">SIT Ip Address</label>
                   </p-floatlabel>
@@ -124,6 +153,7 @@
                       pSize="large"
                       autocomplete="off"
                       formControlName="uatIpAddress"
+                      appIpSafe
                     />
                     <label for="on_label">UAT Ip Address</label>
                   </p-floatlabel>
@@ -137,6 +167,7 @@
                       pSize="large"
                       autocomplete="off"
                       formControlName="preprodIpAddress"
+                      appIpSafe
                     />
                     <label for="on_label">Pre-Prod Ip Address</label>
                   </p-floatlabel>
@@ -150,6 +181,7 @@
                       pSize="large"
                       autocomplete="off"
                       formControlName="prodIpAddress"
+                      appIpSafe
                     />
                     <label for="on_label">Prod Ip Address</label>
                   </p-floatlabel>

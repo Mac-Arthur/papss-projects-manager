@@ -34,6 +34,7 @@
                       autocomplete="off"
                       formControlName="bankName"
                        class="input-select"
+                       appAlphanumeric
                     />
                     <label for="on_label">Bank Name</label>
                   </p-floatlabel>
@@ -67,8 +68,39 @@
                       autocomplete="off"
                       formControlName="currentIssue"
                        class="input-select"
+                       appAlphanumeric
                     />
                     <label for="on_label">Current Issue</label>
+                  </p-floatlabel>
+                </div>
+                <div class="my-3">
+                  <p-floatlabel variant="on">
+                    <input
+                      pInputText
+                      id="on_label"
+                      class="form-control"
+                      pSize="large"
+                      autocomplete="off"
+                      formControlName="fcyTestAccount"
+                       class="input-select"
+                       appAlphanumeric
+                    />
+                    <label for="on_label">FCY Test Account</label>
+                  </p-floatlabel>
+                </div>
+                <div class="my-3">
+                  <p-floatlabel variant="on">
+                    <input
+                      pInputText
+                      id="on_label"
+                      class="form-control"
+                      pSize="large"
+                      autocomplete="off"
+                      formControlName="lcyTestAccount"
+                       class="input-select"
+                       appAlphanumeric
+                    />
+                    <label for="on_label">LCY Test Account</label>
                   </p-floatlabel>
                 </div>
                 <div class="my-3">
@@ -112,6 +144,7 @@
                       autocomplete="off"
                       formControlName="sitIpAddress"
                        class="input-select"
+                       appIpSafe
                     />
                     <label for="on_label">SIT Ip Address</label>
                   </p-floatlabel>
@@ -126,6 +159,7 @@
                       autocomplete="off"
                       formControlName="uatIpAddress"
                        class="input-select"
+                       appIpSafe
                     />
                     <label for="on_label">UAT Ip Address</label>
                   </p-floatlabel>
@@ -140,6 +174,7 @@
                       autocomplete="off"
                       formControlName="preprodIpAddress"
                        class="input-select"
+                       appIpSafe
                     />
                     <label for="on_label">Pre-Prod Ip Address</label>
                   </p-floatlabel>
@@ -154,6 +189,7 @@
                       autocomplete="off"
                       formControlName="prodIpAddress"
                        class="input-select"
+                       appIpSafe
                     />
                     <label for="on_label">Prod Ip Address</label>
                   </p-floatlabel>
